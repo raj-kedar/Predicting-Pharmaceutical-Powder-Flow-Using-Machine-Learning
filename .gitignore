@@ -1,0 +1,42 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.ipynb_checkpoints/
+
+# Environments & secrets — never commit
+.venv/
+venv/
+env/
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+credentials*.json
+.aws/
+.azure/
+
+# Laboratory data (confidential) — keep folder READMEs/.gitkeep only
+data/raw/*
+!data/raw/README.md
+data/interim/*
+data/processed/*
+data/external/*
+!data/**/.gitkeep
+
+# Trained model binaries (share via release/storage, not Git)
+models/*
+!models/.gitkeep
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
