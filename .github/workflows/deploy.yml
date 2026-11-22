@@ -1,0 +1,24 @@
+name: Deploy
+
+# Manual only, from main. Credentials come from GitHub Environment secrets / OIDC —
+# never hard-coded. Platform steps are added later under deployment/aws or deployment/azure.
+on:
+  workflow_dispatch:
+    inputs:
+      target:
+        description: "Cloud target"
+        required: true
+        type: choice
+        options: [aws, azure]
+
+jobs:
+  deploy:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build container image
+        run: docker build -t powder-flow-classifier:${{ github.sha }} .
+      - name: Deploy placeholder
+        run: echo "Deployment to ${{ inputs.target }} not configured yet. See docs/deployment.md"

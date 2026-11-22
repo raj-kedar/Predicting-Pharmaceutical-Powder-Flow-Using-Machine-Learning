@@ -1,0 +1,8 @@
+class_label,flow_character,compressibility_index_pct,hausner_ratio,angle_of_repose_deg,reference,notes
+1,Excellent,<=10,1.00-1.11,25-30,USP <1174> reference scale,Confirm against lab protocol
+2,Good,11-15,1.12-1.18,31-35,USP <1174> reference scale,Confirm against lab protocol
+3,Fair,16-20,1.19-1.25,36-40,USP <1174> reference scale,Confirm against lab protocol
+4,Passable,21-25,1.26-1.34,41-45,USP <1174> reference scale,Confirm against lab protocol
+5,Poor,26-31,1.35-1.45,46-55,USP <1174> reference scale,Confirm against lab protocol
+6,Very poor,32-37,1.46-1.59,56-65,USP <1174> reference scale,Confirm against lab protocol
+7,Very very poor,>38,>1.60,>66,USP <1174> reference scale,Confirm against lab protocol

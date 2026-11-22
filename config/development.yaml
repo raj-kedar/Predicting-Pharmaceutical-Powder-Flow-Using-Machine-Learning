@@ -1,0 +1,14 @@
+environment: development
+random_seed: 42
+paths:
+  raw_data: data/raw
+  interim_data: data/interim
+  processed_data: data/processed
+  models: models
+  results: results
+data:
+  target_column: TBD   # flowability class column name
+  test_size: 0.2
+  stratify: true
+training:
+  cv_folds: 5

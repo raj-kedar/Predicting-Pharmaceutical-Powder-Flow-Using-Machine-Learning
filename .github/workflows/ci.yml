@@ -1,0 +1,31 @@
+name: CI
+
+on:
+  push:
+    branches: [main, dev]
+  pull_request:
+    branches: [main, dev]
+
+jobs:
+  lint-and-safety:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Lint
+        run: |
+          pip install ruff
+          ruff check .
+      - name: Block secrets and .env files
+        run: |
+          if git ls-files | grep -E '(^|/)\.env$|\.pem$|\.key$|credentials.*\.json$'; then
+            echo "Secret-like file committed"; exit 1; fi
+      - name: Raw data must stay immutable
+        if: github.event_name == 'pull_request'
+        run: |
+          changed=$(git diff --name-only origin/${{ github.base_ref }}...HEAD -- data/raw | grep -v '^data/raw/README.md$' || true)
+          if [ -n "$changed" ]; then echo "data/raw modified: $changed"; exit 1; fi
