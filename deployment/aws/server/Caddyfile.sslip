@@ -1,0 +1,9 @@
+# Backup option: a free hostname built from the IP, e.g. https://203-0-113-10.sslip.io
+# Uses a normal 90-day Let's Encrypt certificate. sslip.io is a third-party service.
+{$SITE_ADDRESS} {
+	header {
+		-Server
+		Strict-Transport-Security "max-age=86400"
+	}
+	reverse_proxy api:8000
+}

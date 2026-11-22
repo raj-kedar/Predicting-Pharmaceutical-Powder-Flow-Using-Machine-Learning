@@ -1,12 +1,15 @@
-numpy
-pandas
-scikit-learn
-xgboost
-imbalanced-learn
-shap
-matplotlib
-seaborn
-joblib
-pyyaml
-openpyxl
-python-dotenv
+# Backend runtime. Pinned to the versions this project was tested with.
+# numpy must stay 2.x: the saved model files reference numpy._core.
+fastapi==0.110.0
+uvicorn==0.29.0
+SQLAlchemy==2.0.28
+pydantic==2.6.4
+numpy==2.4.6
+pandas==3.0.6
+PyYAML==6.0.3
+python-dotenv==1.2.4
+# PostgreSQL driver for Amazon RDS. SQLite still works without a server.
+psycopg[binary]==3.3.9
+# Image re-encoding (strips metadata, blocks malformed files) and private S3 storage
+pillow==13.0.0
+boto3==1.44.9

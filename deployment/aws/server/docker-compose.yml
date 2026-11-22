@@ -1,0 +1,57 @@
+# FlowLytix on one EC2 server: Caddy (HTTPS) in front of the API.
+# Values come from /opt/flowlytix/.env; SITE_ADDRESS is set by deploy.sh.
+name: flowlytix
+
+services:
+  api:
+    image: ${IMAGE_URI:?Set IMAGE_URI in .env}
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      APP_ENV: production
+      # Trust X-Forwarded-For only from inside this Compose network. The API has no
+      # published port, so only Caddy can reach it, and Caddy sets the real client IP.
+      FORWARDED_ALLOW_IPS: "*"
+    volumes:
+      - api-data:/app/data/app
+    read_only: true
+    tmpfs:
+      - /tmp
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    logging:
+      driver: json-file
+      options: { max-size: "10m", max-file: "3" }
+
+  caddy:
+    image: caddy:2.11.9-alpine
+    restart: unless-stopped
+    depends_on:
+      api:
+        condition: service_healthy
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    environment:
+      SITE_ADDRESS: ${SITE_ADDRESS:?Run deploy.sh instead of docker compose directly}
+    volumes:
+      - ./Caddyfile.${SITE_MODE:-ip}:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+    cap_drop:
+      - ALL
+    cap_add:
+      - NET_BIND_SERVICE
+    security_opt:
+      - no-new-privileges:true
+    logging:
+      driver: json-file
+      options: { max-size: "10m", max-file: "3" }
+
+volumes:
+  api-data:
+  caddy-data:      # certificates live here; keep it so renewals don't hit rate limits
+  caddy-config:

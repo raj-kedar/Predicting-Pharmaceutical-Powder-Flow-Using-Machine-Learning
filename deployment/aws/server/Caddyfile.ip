@@ -1,0 +1,21 @@
+# HTTPS on the bare Elastic IP, e.g. https://203.0.113.10
+# Let's Encrypt issues IP certificates only with the short-lived (about 6 day) profile.
+# Caddy renews them automatically; ports 80 and 443 must stay open.
+{
+	# Browsers send no SNI hostname for IP addresses, so name the default certificate.
+	default_sni {$SITE_ADDRESS}
+}
+
+{$SITE_ADDRESS} {
+	tls {
+		issuer acme {
+			dir https://acme-v02.api.letsencrypt.org/directory
+			profile shortlived
+		}
+	}
+	header {
+		-Server
+		Strict-Transport-Security "max-age=86400"
+	}
+	reverse_proxy api:8000
+}

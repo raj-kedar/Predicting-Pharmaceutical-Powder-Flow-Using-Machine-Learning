@@ -1,0 +1,30 @@
+name: powder-flow
+
+services:
+  api:
+    build: .
+    image: powder-flow:latest
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:${FLOWTOOL_PORT:-8000}:8000"   # local machine only
+    environment:
+      APP_ENV: production
+      FLOWTOOL_SECRET_KEY: ${FLOWTOOL_SECRET_KEY:?Run python -m scripts.seed to create .env}
+      FLOWTOOL_CORS_ORIGINS: ${FLOWTOOL_CORS_ORIGINS:-}
+      # Empty = SQLite in the api-data volume. Set to the Amazon RDS URL in production.
+      FLOWTOOL_DATABASE_URL: ${FLOWTOOL_DATABASE_URL:-}
+      RAZORPAY_KEY_ID: ${RAZORPAY_KEY_ID:-}
+      RAZORPAY_KEY_SECRET: ${RAZORPAY_KEY_SECRET:-}
+      RAZORPAY_WEBHOOK_SECRET: ${RAZORPAY_WEBHOOK_SECRET:-}
+    volumes:
+      - api-data:/app/data/app
+    read_only: true
+    tmpfs:
+      - /tmp
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+
+volumes:
+  api-data:

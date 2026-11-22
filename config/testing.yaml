@@ -6,9 +6,17 @@ paths:
   processed_data: data/processed
   models: models
   results: results
+  database: data/app/test_unused.db   # tests always supply a temporary database
 data:
-  target_column: TBD   # flowability class column name
-  test_size: 0.2
-  stratify: true
-training:
-  cv_folds: 5
+  target: "Carrs_Index_percent >= 25"
+  validation: leave-one-material-out
+model:
+  version: "1.1.0"
+api:
+  cors_origins:
+    - http://localhost:5173
+  max_body_bytes: 65536
+security:
+  token_ttl_seconds: 3600
+  max_login_failures: 3
+  lockout_minutes: 15

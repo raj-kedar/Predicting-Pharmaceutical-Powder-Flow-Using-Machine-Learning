@@ -6,9 +6,16 @@ paths:
   processed_data: data/processed
   models: models
   results: results
+  database: data/app/flowtool.db
 data:
-  target_column: TBD   # flowability class column name
-  test_size: 0.2
-  stratify: true
-training:
-  cv_folds: 5
+  target: "Carrs_Index_percent >= 25"
+  validation: leave-one-material-out
+model:
+  version: "1.1.0"
+api:
+  cors_origins: []   # set FLOWTOOL_CORS_ORIGINS to the deployed frontend URL
+  max_body_bytes: 65536
+security:
+  token_ttl_seconds: 3600
+  max_login_failures: 5
+  lockout_minutes: 15

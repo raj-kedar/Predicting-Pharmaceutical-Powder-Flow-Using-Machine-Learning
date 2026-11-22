@@ -4,7 +4,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 REQUIRED = [
     "data/raw", "data/metadata", "notebooks", "src", "models", "results",
-    "app", "api", "deployment/aws", "deployment/azure", "config", "docs", "reports",
+    "app", "api", "api/db", "api/routers", "scripts", "deployment/aws", "deployment/azure",
+    "config", "docs", "reports",
 ]
 
 
