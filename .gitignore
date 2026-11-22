@@ -10,6 +10,12 @@ dist/
 htmlcov/
 .ipynb_checkpoints/
 
+# Frontend
+node_modules/
+
+# Generated deployment files (contain the AWS account ID)
+deployment/aws/out/
+
 # Environments & secrets — never commit
 .venv/
 venv/
@@ -29,6 +35,10 @@ data/raw/*
 data/interim/*
 data/processed/*
 data/external/*
+data/app/*
+*.db
+*.db-shm
+*.db-wal
 !data/**/.gitkeep
 
 # Trained model binaries (share via release/storage, not Git)

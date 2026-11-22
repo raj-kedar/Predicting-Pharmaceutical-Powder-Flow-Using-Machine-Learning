@@ -1,0 +1,8 @@
+/* The admin panel uses a navy sidebar so it is never mistaken for the lab workspace. */
+.admin-shell .sidebar { background: linear-gradient(180deg, #2c3f6b, #1b2742); }
+.admin-shell .nav-link.active { color: #25375f; }
+.money { color: var(--navy); font-variant-numeric: tabular-nums; }
+.admin-gate { min-height: 100vh; display: grid; place-items: center; padding: 16px; }
+.admin-gate .card { width: min(440px, 100%); text-align: center; }
+.admin-gate .btn { margin-top: 16px; }
+.plan-pill { text-transform: capitalize; }
